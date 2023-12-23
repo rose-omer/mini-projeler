@@ -20,4 +20,5 @@ Bu Java kodu, basit bir grafik arayüze sahip bir hesap makinesi uygulamasını 
 
 Bu kod, Java programlamada grafik arayüzü oluşturmak için yaygın olarak kullanılan Swing kütüphanesini kullanır. Ayrıca, basit matematik hesaplamaları yapabilmek için temel Java dil özelliklerini kullanır.
 
-![image](https://github.com/rose-omer/Hesap_Makinesi_GUI_SWING/assets/117285777/8b543862-ca8d-40c4-9e32-9d66dd5c13c1)
+![image](https://github.com/rose-omer/Hesap_Makinesi_GUI_SWING/assets/117285777/4da39a66-7c36-4029-8452-872ae06400b5)
+
