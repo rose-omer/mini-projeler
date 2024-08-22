@@ -15,3 +15,9 @@ Weather App, şehir isimlerini girerek hava durumu bilgilerini görüntülemeniz
 1. Bu projeyi klonlayın:
    ```bash
    git clone https://github.com/kullanici_adiniz/weather-app.git
+### Ekran Görüntüsü
+![image](https://github.com/user-attachments/assets/67f325a8-f817-42d6-84f5-9e2d4a39b0fe)
+![image](https://github.com/user-attachments/assets/36da2d88-8f57-4fbd-8477-6b1205a832f2)
+![image](https://github.com/user-attachments/assets/d5cc2a35-2966-44dc-87e4-791360f7581c)
+
+
