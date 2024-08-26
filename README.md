@@ -15,7 +15,12 @@ Bu, belirli bir uzunlukta rastgele şifre üreten basit bir web tabanlı uygulam
 
 ## Proje Yapısı
 
-├── index.html # Uygulamanın ana HTML dosyası ├── style.css # CSS dosyası ├── images/ # İkon ve resimlerin bulunduğu dizin
+├── index.html 
+# Uygulamanın ana HTML dosyası 
+├── style.css 
+# CSS dosyası
+├── images/ 
+# İkon ve resimlerin bulunduğu dizin
 
 
 ## Screenshots
