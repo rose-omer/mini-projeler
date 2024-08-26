@@ -26,3 +26,5 @@ Bu, belirli bir uzunlukta rastgele şifre üreten basit bir web tabanlı uygulam
 ## Screenshots
 
 ![image](https://github.com/user-attachments/assets/e9a42045-9604-47f1-a215-4aa3e92dfc6a)
+![image](https://github.com/user-attachments/assets/0fd797b1-f672-4baf-99ee-c9a9e6739cfc)
+![image](https://github.com/user-attachments/assets/78500185-c9b9-481a-b54d-63de232417a9)
