@@ -14,13 +14,13 @@ Bu, belirli bir uzunlukta rastgele şifre üreten basit bir web tabanlı uygulam
 3. Şifre giriş alanının yanındaki kopya ikonuna tıklayarak şifreyi panoya kopyalayabilirsiniz.
 
 ## Proje Yapısı
-
-├── index.html 
 # Uygulamanın ana HTML dosyası 
-├── style.css 
+├── index.html 
 # CSS dosyası
-├── images/ 
+├── style.css 
 # İkon ve resimlerin bulunduğu dizin
+├── images/ 
+
 
 
 ## Screenshots
