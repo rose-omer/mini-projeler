@@ -9,8 +9,8 @@
 
 **Google Gemini 2.0 Flash API kullanarak geliştirilen multimodal (metin + görsel) AI sohbet arayüzü**
 
-![Demo Gif]([demo-gif-link-here](https://github.com/user-attachments/assets/f869bab8-238b-479d-bda5-72a2b3d9f6ed
-)
+![Demo Gif][demo-gif-link-here](https://github.com/user-attachments/assets/f869bab8-238b-479d-bda5-72a2b3d9f6ed]
+
 ## 🌟 Öne Çıkan Özellikler
 
 
