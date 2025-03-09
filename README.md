@@ -9,11 +9,8 @@
 
 **Google Gemini 2.0 Flash API kullanarak geliştirilen multimodal (metin + görsel) AI sohbet arayüzü**
 
-https://github.com/user-attachments/assets/f869bab8-238b-479d-bda5-72a2b3d9f6ed
 
 ## 🌟 Öne Çıkan Özellikler
-
-
 
 - **Multimodal Etkileşim**: Metin ve resimleri aynı anda işleyebilme
 - **Gerçek Zamanlı Tarihçe**: Dinamik sohbet geçmişi görüntüleme
@@ -26,6 +23,8 @@ https://github.com/user-attachments/assets/f869bab8-238b-479d-bda5-72a2b3d9f6ed
 ### Ön Koşullar
 - Python 3.9+
 - Google Gemini API anahtarı ([Almak için tıkla](https://ai.google.dev/))
+
+https://github.com/user-attachments/assets/f869bab8-238b-479d-bda5-72a2b3d9f6ed
 
 ### Adım Adım Kurulum
 ```bash
