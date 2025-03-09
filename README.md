@@ -9,9 +9,12 @@
 
 **Google Gemini 2.0 Flash API kullanarak geliştirilen multimodal (metin + görsel) AI sohbet arayüzü**
 
-![Demo Gif](demo-gif-link-here) <!-- Demo videosunu buraya ekle -->
-
+![Demo Gif]([demo-gif-link-here](https://github.com/user-attachments/assets/f869bab8-238b-479d-bda5-72a2b3d9f6ed
+)) 
 ## 🌟 Öne Çıkan Özellikler
+
+
+
 - **Multimodal Etkileşim**: Metin ve resimleri aynı anda işleyebilme
 - **Gerçek Zamanlı Tarihçe**: Dinamik sohbet geçmişi görüntüleme
 - **Kullanıcı Dostu Arayüz**: Gradio ile responsive tasarım
