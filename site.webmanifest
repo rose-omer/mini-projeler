@@ -1,0 +1,14 @@
+{
+  "name": "Ankara Tur",
+  "short_name": "Ankara Tur",
+  "description": "Ankara çıkışlı günübirlik ve konaklamalı turlar",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f6f4ee",
+  "theme_color": "#101c4e",
+  "lang": "tr",
+  "icons": [
+    { "src": "assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/img/favicon.png", "sizes": "64x64", "type": "image/png" }
+  ]
+}
