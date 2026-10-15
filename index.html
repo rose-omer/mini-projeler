@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Milet Coffee · Bugün rafta (demo)</title>
+<meta name="description" content="Milet Coffee için hazırlanmış demo: kavurucuya göre çekirdek rafı, sepet ve WhatsApp'tan sipariş.">
+<meta name="theme-color" content="#0A2C24">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;500;700&family=Sofia+Sans+Condensed:wght@500;600;700&family=Sofia+Sans+Extra+Condensed:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --steel:#D3D7D5;
+  --steel-hi:#E6E9E7;
+  --steel-lo:#B7BDBA;
+  --ink:#16251F;
+  --ink-2:#3C4E47;
+  --housing:#0A2C24;
+  --housing-2:#0D352C;
+  --flap:#0F4F40;
+  --flap-top:#145A4A;
+  --flap-bot:#0D4538;
+  --flap-dim-top:#0E4034;
+  --flap-dim-bot:#0B372D;
+  --hinge:#05241C;
+  --letter:#F3F5F2;
+  --letter-2:#A9C7BD;
+  --amber:#F2A93B;
+  --brick:#F0907F;
+  --cart:#1D7A62;
+  --brand:#116654;
+  --font-flap:"Sofia Sans Extra Condensed", "Arial Narrow", sans-serif;
+  --font-label:"Sofia Sans Condensed", "Arial Narrow", sans-serif;
+  --font-body:"Sofia Sans", system-ui, sans-serif;
+  --gutter:clamp(16px, 4vw, 40px);
+  --max:1240px;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-color:var(--flap) var(--steel);-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.55;
+  background-color:var(--steel);
+  background-image:linear-gradient(rgba(255,255,255,.14), transparent 900px), url("img/steel.webp");
+  background-repeat:no-repeat, repeat;
+  background-size:100% 900px, 512px 512px;
+  caret-color:var(--amber);
+  padding-bottom:calc(84px + env(safe-area-inset-bottom));
+  font-variant-numeric:tabular-nums;
+}
+::selection{background:var(--amber);color:#1E1400}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px;border-radius:3px}
+a{color:var(--brand);text-underline-offset:.22em;text-decoration-thickness:1px}
+a:hover{color:var(--ink)}
+img{display:block;max-width:100%;height:auto}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:var(--gutter)}
+svg.i{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+svg.i.fill{fill:currentColor;stroke:none}
+
+/* ---------- demo strip + header ---------- */
+.demo-strip{background:var(--housing);color:var(--letter-2);font-family:var(--font-label);font-size:14px;letter-spacing:.02em;padding:7px var(--gutter);text-align:center}
+.demo-strip b{color:var(--amber);font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.site-head{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:var(--max);margin:0 auto;padding:14px var(--gutter) 6px}
+.site-head .logo img{height:52px;width:auto}
+.nav{display:flex;gap:6px;align-items:center}
+.nav a{font-family:var(--font-label);font-weight:600;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:8px 10px;border-radius:3px}
+.nav a:hover{background:rgba(10,44,36,.08)}
+.cart-chip{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);font-family:var(--font-label);font-weight:700;font-size:14px;letter-spacing:.12em;padding:4px 4px 4px 10px;border-radius:4px;background:rgba(10,44,36,.07)}
+.cart-chip .digits{display:inline-flex;gap:2px}
+.nav .links{display:flex;gap:2px}
+@media (max-width:760px){.nav .links{display:none}}
+
+/* ---------- flap cells ---------- */
+.flap{
+  position:relative;display:inline-grid;place-items:center;
+  background:linear-gradient(var(--flap-top) 0 50%, var(--flap-bot) 50% 100%);
+  color:var(--letter);font-family:var(--font-flap);font-weight:800;text-transform:uppercase;line-height:1;
+  border-radius:3px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 2px 4px rgba(4,26,20,.35);
+  overflow:hidden;
+}
+.flap::after{content:"";position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:var(--hinge);opacity:.9}
+.flap::before{content:"";position:absolute;left:-1px;right:-1px;top:50%;height:6px;margin-top:-3px;
+  background:linear-gradient(90deg,var(--hinge) 0 3px,transparent 3px calc(100% - 3px),var(--hinge) calc(100% - 3px));}
+.digit{width:22px;height:30px;font-size:22px}
+
+/* headline */
+.hero{max-width:var(--max);margin:0 auto;padding:18px var(--gutter) 0}
+.headline{margin:0;font-size:calc(var(--c) * 1.04);line-height:1.1;display:flex;flex-wrap:wrap;gap:calc(var(--c) * .1) calc(var(--c) * .36);--c:clamp(52px, 16.9vw, 100px)}
+.headline .word,.flapline .word{background:var(--housing);padding:5px;border-radius:5px;box-shadow:0 0 0 1px rgba(255,255,255,.45), 0 10px 22px -12px rgba(5,30,24,.55)}
+.headline .word{display:flex;gap:4px;flex:1}
+.headline .word .flap{flex:1;width:auto}
+@media (max-width:600px){.headline .word{flex:1 1 100%}}
+@media (max-width:520px){.headline{margin-inline:-8px}}
+.headline .flap,.flapline .flap{box-shadow:inset 0 1px 0 rgba(255,255,255,.07)}
+.headline .flap{width:var(--c);height:calc(var(--c) * 1.2);font-size:calc(var(--c) * 1.04);letter-spacing:0}
+.headline .flap span{transform:translateY(.02em)}
+.hero-sub{display:flex;flex-wrap:wrap;gap:10px 32px;justify-content:space-between;align-items:end;margin:18px 0 18px}
+.hero-sub p{margin:0;max-width:44ch;font-size:clamp(17px,1.6vw,20px);line-height:1.45;color:var(--ink);text-wrap:pretty}
+.hero-sub .meta{font-family:var(--font-label);font-weight:600;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);display:flex;gap:16px;flex-wrap:wrap}
+.hero-sub .meta span{display:inline-flex;align-items:center;gap:6px}
+@media (max-width:600px){
+  .headline{--c:clamp(48px, 14.4vw, 100px)}
+  .headline .flap{height:calc(var(--c) * 1.12);font-size:calc(var(--c) * 1)}
+  .site-head{padding-block:10px 4px}
+  .site-head .logo img{height:36px}
+  .hero{padding-top:10px}
+  .hero-sub{margin:12px 0 12px}
+  .hero-sub p{font-size:15px}
+  .hero-sub .meta{display:none}
+  .demo-strip .long,.hero-sub .long{display:none}
+}
+@media (min-width:601px){.demo-strip .short,.hero-sub .short{display:none}}
+
+/* ---------- board ---------- */
+.board{
+  max-width:var(--max);margin:0 auto;
+  background:var(--housing);
+  border-radius:6px;
+  padding:10px;
+  box-shadow:0 0 0 3px var(--steel-lo), 0 0 0 4px rgba(255,255,255,.5), 0 18px 40px -18px rgba(5,30,24,.55);
+  color:var(--letter);
+}
+.board-wrap{padding-inline:var(--gutter);max-width:var(--max);margin:0 auto}
+@media (max-width:520px){.board-wrap{padding-inline:8px}}
+.board-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:4px 4px 10px;font-family:var(--font-label);font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--letter-2)}
+.board-top .live{display:inline-flex;align-items:center;gap:8px}
+.board-top .live .digits{display:inline-flex;gap:2px}
+.board-top .live .flap{width:17px;height:24px;font-size:18px}
+.board-top .sample{color:var(--amber)}
+.filters{display:flex;gap:6px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x proximity;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 36px),transparent)}
+.filters::-webkit-scrollbar{display:none}
+.filters button{
+  flex:none;scroll-snap-align:start;cursor:pointer;border:0;
+  font-family:var(--font-flap);font-weight:800;font-size:19px;letter-spacing:.06em;text-transform:uppercase;
+  padding:9px 12px 7px;height:40px;
+}
+.filters button[aria-pressed="true"]{background:linear-gradient(#F6F7F5 0 50%, #E3E8E5 50% 100%);color:var(--housing)}
+.filters button:hover:not([aria-pressed="true"]){color:var(--amber)}
+
+table.rows{width:100%;border-collapse:separate;border-spacing:0 6px;table-layout:fixed}
+.rows thead th{font-family:var(--font-label);font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--letter-2);text-align:left;padding:0 6px 0}
+.rows td{padding:0 3px;vertical-align:stretch;height:58px}
+.rows td:first-child{padding-left:0}
+.rows td:last-child{padding-right:0}
+.cell{
+  display:grid;grid-template-rows:1fr 1fr;width:100%;height:100%;min-height:58px;
+  padding:0 10px;text-align:left;
+  font-size:var(--cell-fs, 22px);letter-spacing:.05em;white-space:nowrap;
+}
+.rows{--cell-fs:22px}
+.cell.flap{display:grid;place-items:initial}
+.cell::after{height:1px;margin-top:0;opacity:.75}
+.cell .t{display:block;overflow:hidden;text-overflow:ellipsis;line-height:1;align-self:end;padding-bottom:4px;position:relative;z-index:1}
+.cell .s{display:block;overflow:hidden;text-overflow:ellipsis;font-family:var(--font-label);font-weight:600;font-size:13px;letter-spacing:.1em;line-height:1;color:var(--letter-2);align-self:start;padding-top:6px;position:relative;z-index:1}
+.cell.notes .t{color:var(--letter-2);font-size:19px}
+.cell.price{text-align:right}
+button.cell{border:0;cursor:pointer;color:var(--letter);font:800 var(--cell-fs, 22px)/1 var(--font-flap);letter-spacing:.05em}
+button.cell.bean:hover .t, button.cell.bean[aria-expanded="true"] .t{color:var(--amber)}
+.cell.status{text-align:center}
+.cell.status .t,.cell.status .s{width:100%;text-align:center}
+.plate::after,.plate::before{display:none}
+.filters .flap::after{opacity:.3}
+.filters .flap::before{opacity:.5}
+.st-new .t{color:var(--amber)}
+.st-out .t{color:var(--brick)}
+.st-cart{background:linear-gradient(#22866C 0 50%, #1B755E 50% 100%)}
+button.add{width:100%;height:100%;min-height:58px;display:grid;place-items:center;border:0;cursor:pointer;position:relative;border-radius:3px;
+  color:var(--housing);background:linear-gradient(#F6F7F5 0 50%, #E3E8E5 50% 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07), 0 2px 4px rgba(4,26,20,.35)}
+button.add::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(5,36,28,.35)}
+button.add:hover{color:var(--brand);background:linear-gradient(#FFFFFF 0 50%, #EBF0ED 50% 100%)}
+button.add:disabled{cursor:not-allowed;color:#5F857A;box-shadow:none}
+button.add svg{width:24px;height:24px;stroke-width:2.2;position:relative;z-index:1}
+tr.out .flap, tr.out button.add{background:linear-gradient(var(--flap-dim-top) 0 50%, var(--flap-dim-bot) 50% 100%)}
+tr.out .cell .t{color:#7FA398}
+tr.out .cell.status .t{color:var(--brick)}
+
+col.c-roaster{width:15%} col.c-bean{width:auto} col.c-proc{width:12%} col.c-notes{width:24%} col.c-price{width:9%} col.c-status{width:10%} col.c-add{width:56px}
+@media (max-width:860px){
+  .col-opt{display:none}
+  col.c-roaster{width:100px} col.c-status{width:80px} col.c-add{width:44px}
+  .rows{--cell-fs:19px}
+  .cell{padding:0 8px}
+  .cell.status{--cell-fs:18px;padding:0 4px}
+}
+@media (max-width:360px){ .rows{--cell-fs:17px} col.c-roaster{width:88px} col.c-status{width:74px} }
+@media (max-width:600px){
+  .rows td{height:50px}
+  .cell, button.add{min-height:50px}
+}
+
+/* detail row */
+tr.detail td{padding:0}
+.label{
+  background:var(--steel-hi);color:var(--ink);border-radius:4px;padding:18px clamp(16px,3vw,28px) 20px;margin:0 0 4px;
+  display:grid;gap:18px 32px;grid-template-columns:1fr;
+}
+@media (min-width:860px){.label{grid-template-columns:1.2fr 1fr}}
+.label h3{margin:0 0 4px;font-family:var(--font-flap);font-weight:800;font-size:30px;letter-spacing:.03em;text-transform:uppercase;line-height:1}
+.label .by{font-family:var(--font-label);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:var(--ink-2);margin:0 0 12px}
+.label p.notes{margin:0 0 14px;font-size:18px;max-width:46ch}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;margin:0}
+@media (min-width:560px){.facts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.facts div{border-top:1px solid var(--steel-lo);padding-top:6px}
+.facts dt{font-family:var(--font-label);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+.facts dd{margin:0;font-weight:500}
+.buy{display:grid;gap:12px;align-content:start}
+.field label{display:block;font-family:var(--font-label);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1px solid var(--steel-lo);background:#F4F6F5;color:var(--ink);font:500 15px/1 var(--font-body);padding:10px 12px;border-radius:3px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--flap);border-color:var(--flap);color:var(--letter)}
+.seg button:hover:not([aria-pressed="true"]){border-color:var(--ink-2)}
+.buy-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:4px}
+.price-big{font-family:var(--font-flap);font-weight:800;font-size:34px;letter-spacing:.02em}
+.price-big small{font-family:var(--font-label);font-size:13px;letter-spacing:.12em;color:var(--ink-2);margin-left:6px;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:0;cursor:pointer;text-decoration:none;
+  font-family:var(--font-flap);font-weight:800;font-size:21px;letter-spacing:.06em;text-transform:uppercase;
+  padding:12px 18px 10px;border-radius:4px;color:var(--letter);background:linear-gradient(var(--flap-top) 0 50%, var(--flap-bot) 50% 100%);
+  box-shadow:0 2px 4px rgba(4,26,20,.3);transition:color .2s}
+.btn:hover{color:var(--amber)}
+.btn.ghost{background:none;background-image:none;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink-2)}
+.btn.ghost:hover{color:var(--brand);box-shadow:inset 0 0 0 1.5px var(--brand)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn svg{width:22px;height:22px}
+
+/* ---------- section headings ---------- */
+section{scroll-margin-top:16px}
+.sec{max-width:var(--max);margin:0 auto;padding:clamp(64px,9vw,120px) var(--gutter) 0}
+.flapline{margin:0 0 22px;font-size:calc(var(--c) * .98);line-height:1.1;display:flex;flex-wrap:wrap;gap:8px 18px;--c:clamp(34px, 8.6vw, 60px)}
+.flapline .word{display:flex;gap:3px;padding:4px}
+.flapline .flap{width:calc(var(--c)*.82);height:calc(var(--c)*1.16);font-size:calc(var(--c)*.98)}
+.lede{font-size:clamp(18px,1.8vw,22px);line-height:1.45;max-width:40ch;margin:0 0 24px;text-wrap:pretty}
+
+/* tadım */
+.tasting{display:grid;gap:28px}
+@media (min-width:900px){.tasting{grid-template-columns:1fr 1.25fr;align-items:start}}
+.tasting .copy p{max-width:52ch;margin:0 0 14px}
+.tasting figure{margin:22px 0 0}
+.tasting figure img{border-radius:4px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.mini{margin-bottom:14px}
+.mini .board-top{padding-bottom:6px}
+.ev{display:grid;grid-template-columns:auto 1fr auto;gap:6px;margin-bottom:6px;align-items:stretch}
+.ev .flap{font-size:20px;letter-spacing:.05em;padding:8px 10px 6px;min-height:50px;justify-items:start;place-items:center start}
+.ev .when{width:96px;place-items:center}
+.ev .what{white-space:normal;line-height:1.05}
+.ev .what small{display:block;font-family:var(--font-label);font-weight:600;font-size:12px;letter-spacing:.12em;color:var(--letter-2);margin-top:3px;position:relative;z-index:1}
+.ev a.flap{text-decoration:none;color:var(--letter);place-items:center}
+.ev a.flap:hover{color:var(--amber)}
+.ev .full{color:var(--brick)}
+@media (max-width:520px){.ev{grid-template-columns:78px 1fr}.ev .when{width:78px;font-size:17px}.ev .act{grid-column:1 / -1}}
+
+/* dükkân */
+.shop{display:grid;gap:12px;grid-template-columns:repeat(6,1fr);grid-auto-flow:dense}
+.shop figure{margin:0;position:relative;border-radius:4px;overflow:hidden;background:var(--housing)}
+.shop img{width:100%;height:100%;object-fit:cover}
+.shop figcaption{position:absolute;left:10px;bottom:10px;right:10px;display:flex}
+.shop figcaption span{font-family:var(--font-flap);font-weight:800;font-size:18px;letter-spacing:.06em;text-transform:uppercase;padding:7px 10px 5px;white-space:normal;line-height:1.05}
+.shop .a{grid-column:span 3;grid-row:span 2;aspect-ratio:3/4}
+.shop .b{grid-column:span 3;aspect-ratio:4/3}
+.shop .c{grid-column:span 3;aspect-ratio:4/3}
+.shop .e{grid-column:span 6;aspect-ratio:16/7}
+@media (max-width:700px){
+  .shop .a{grid-column:span 6;grid-row:auto;aspect-ratio:4/5}
+  .shop .b,.shop .c{grid-column:span 6}
+  .shop .e{aspect-ratio:4/3}
+}
+.creed{display:grid;gap:0;margin:28px 0 0;padding:0;list-style:none;border-top:1px solid var(--steel-lo)}
+@media (min-width:800px){.creed{grid-template-columns:repeat(3,1fr);column-gap:32px}}
+.creed li{padding:14px 0;border-bottom:1px solid var(--steel-lo);font-size:17px;max-width:44ch}
+.creed b{display:block;font-family:var(--font-flap);font-weight:800;font-size:22px;letter-spacing:.04em;text-transform:uppercase;line-height:1.05;margin-bottom:4px}
+
+/* yorumlar */
+.reviews{display:grid;gap:6px}
+.rv{display:grid;grid-template-columns:1fr;gap:6px}
+@media (min-width:760px){.rv{grid-template-columns:200px 1fr}}
+.rv .flap{place-items:center start;padding:12px 14px 10px;white-space:normal;line-height:1.1}
+.rv .who{font-size:20px;letter-spacing:.05em}
+.rv .who small{display:block;font-family:var(--font-label);font-size:12px;letter-spacing:.12em;color:var(--letter-2);margin-top:3px;position:relative;z-index:1}
+.rv .quote{font-family:var(--font-body);font-weight:500;font-size:18px;text-transform:none;letter-spacing:0;line-height:1.4}
+.rv .quote span{position:relative;z-index:1}
+.rv .flap::after,.rv .flap::before,
+.ev .flap::after,.ev .flap::before,
+.visit .info .flap::after,.visit .info .flap::before,
+.shop figcaption .flap::after,.shop figcaption .flap::before{display:none}
+.score{display:flex;align-items:center;gap:14px;margin:0 0 16px;font-family:var(--font-label);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:14px;color:var(--ink-2)}
+.score .digits{display:inline-flex;gap:3px}
+.score .flap{width:34px;height:46px;font-size:38px}
+
+/* sipariş */
+.order{display:grid;gap:24px}
+@media (min-width:900px){.order{grid-template-columns:1.4fr 1fr;align-items:start}}
+.slip{background:var(--steel-hi);border-radius:6px;padding:clamp(16px,3vw,26px);box-shadow:0 12px 30px -20px rgba(5,30,24,.5)}
+.line{display:grid;grid-template-columns:1fr auto;gap:6px 14px;padding:14px 0;border-bottom:1px dashed var(--steel-lo)}
+.line:first-child{padding-top:0}
+.line h4{margin:0;font-family:var(--font-flap);font-weight:800;font-size:22px;letter-spacing:.03em;text-transform:uppercase;line-height:1.05}
+.line .opts{font-size:15px;color:var(--ink-2)}
+.line .amt{font-family:var(--font-flap);font-weight:800;font-size:22px;text-align:right}
+.line .ctrl{grid-column:1 / -1;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--steel-lo);border-radius:4px;background:#F4F6F5}
+.qty button{width:40px;height:40px;border:0;background:none;cursor:pointer;color:var(--ink);display:grid;place-items:center}
+.qty button:hover{color:var(--brand)}
+.qty output{min-width:28px;text-align:center;font-weight:700}
+.linkbtn{border:0;background:none;color:var(--ink-2);font:500 15px var(--font-body);text-decoration:underline;text-underline-offset:.22em;cursor:pointer;padding:8px 4px}
+.linkbtn:hover{color:#9B2C1F}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding-top:16px}
+.total span{font-family:var(--font-label);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:14px;color:var(--ink-2)}
+.total strong{font-family:var(--font-flap);font-weight:800;font-size:40px;letter-spacing:.02em}
+.empty{padding:6px 0 4px;color:var(--ink-2)}
+.empty b{display:block;font-family:var(--font-flap);font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink);margin-bottom:4px}
+.form{display:grid;gap:14px}
+.form fieldset{border:0;margin:0;padding:0}
+.form legend{font-family:var(--font-label);font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:6px;padding:0}
+.form input[type=text], .form textarea{width:100%;font:500 17px var(--font-body);color:var(--ink);background:#F4F6F5;border:1px solid var(--steel-lo);border-radius:4px;padding:11px 12px}
+.form input::placeholder,.form textarea::placeholder{color:#55665F}
+.form textarea{min-height:76px;resize:vertical}
+.send{display:grid;gap:8px}
+.send .btn{width:100%}
+.hint{font-size:14px;color:var(--ink-2);margin:2px 0 0}
+.status-msg{font-size:15px;color:var(--brand);min-height:1.4em;margin:0}
+
+/* ziyaret */
+.visit{display:grid;gap:24px}
+@media (min-width:900px){.visit{grid-template-columns:1fr 1fr;align-items:stretch}}
+.visit .info .flap{place-items:center start;white-space:normal;padding:10px 12px 8px;min-height:52px;font-size:21px;letter-spacing:.04em;line-height:1.1}
+.visit .info .row{display:grid;grid-template-columns:108px 1fr;gap:6px;margin-bottom:6px}
+.visit .info .k{font-family:var(--font-label);font-weight:600;font-size:12px;letter-spacing:.14em;color:var(--letter-2);place-items:center start}
+.visit .info .muted{color:var(--letter-2)}
+.visit .ctas{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.visit figure{margin:0;border-radius:6px;overflow:hidden;background:var(--housing);align-self:start}
+.visit figure img{width:100%;aspect-ratio:4/3;height:auto;object-fit:cover;object-position:50% 60%}
+
+footer{max-width:var(--max);margin:0 auto;padding:clamp(56px,8vw,96px) var(--gutter) 28px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:end;color:var(--ink-2);font-size:15px}
+footer img{height:56px;width:auto}
+footer p{margin:0;max-width:52ch}
+
+/* ---------- order bar ---------- */
+.orderbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  padding:8px var(--gutter) calc(8px + env(safe-area-inset-bottom));
+  background:rgba(211,215,213,.86);backdrop-filter:blur(10px) saturate(1.2);-webkit-backdrop-filter:blur(10px) saturate(1.2);
+  border-top:1px solid rgba(255,255,255,.6);
+}
+.orderbar a{
+  max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  min-height:56px;padding:8px 16px 6px;border-radius:5px;text-decoration:none;
+  font-family:var(--font-flap);font-weight:800;font-size:22px;letter-spacing:.05em;text-transform:uppercase;
+  color:var(--letter);background:linear-gradient(var(--flap-top) 0 50%, var(--flap-bot) 50% 100%);
+  box-shadow:0 6px 18px -8px rgba(5,30,24,.6);transition:background .35s var(--ease-out), color .2s;
+}
+.orderbar a:hover{color:var(--amber)}
+.orderbar a .sum{display:inline-flex;align-items:center;gap:10px}
+.orderbar a .sum small{font-family:var(--font-label);font-size:13px;letter-spacing:.12em;color:var(--letter-2)}
+.orderbar a .go{display:inline-flex;align-items:center;gap:8px}
+.orderbar.is-empty a{background:var(--steel-hi);color:var(--ink-2);box-shadow:inset 0 0 0 1.5px var(--steel-lo)}
+.orderbar.is-empty a .sum small{color:var(--ink-2)}
+.orderbar a span{white-space:nowrap}
+@media (max-width:480px){
+  .orderbar a{font-size:20px;padding-inline:12px}
+  .orderbar.is-empty a .sum small{display:none}
+}
+@media (max-width:520px){
+  .board-top{font-size:12px;letter-spacing:.1em}
+  .board-top .opt-sm{display:none}
+}
+
+.tick{animation:tick .16s var(--ease-out)}
+@keyframes tick{0%{transform:scaleY(.72);filter:brightness(1.25)}100%{transform:none;filter:none}}
+@media (prefers-reduced-motion: reduce){.tick{animation:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="1.5"/><path d="M4 7l8 6 8-6"/></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4.5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.9" cy="7.1" r=".6" fill="currentColor"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-train" viewBox="0 0 24 24"><rect x="6" y="3.5" width="12" height="13" rx="3"/><path d="M6 11h12M9 20l-1.5 1.5M15 20l1.5 1.5M9.5 14h.01M14.5 14h.01"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12.04 2.5a9.45 9.45 0 0 0-8.1 14.3L2.6 21.5l4.83-1.27A9.45 9.45 0 1 0 12.04 2.5zm0 17.2a7.8 7.8 0 0 1-3.97-1.09l-.28-.17-2.87.75.77-2.8-.19-.29a7.78 7.78 0 1 1 6.54 3.6zm4.27-5.83c-.23-.12-1.38-.68-1.6-.76-.21-.08-.37-.12-.53.12-.15.23-.6.76-.74.92-.14.16-.27.18-.5.06a6.4 6.4 0 0 1-1.88-1.16 7.05 7.05 0 0 1-1.3-1.62c-.14-.23 0-.36.1-.47.11-.11.24-.27.35-.41.12-.14.16-.23.24-.39.08-.16.04-.29-.02-.41-.06-.12-.53-1.27-.72-1.74-.19-.46-.38-.39-.53-.4h-.45a.86.86 0 0 0-.62.29 2.62 2.62 0 0 0-.82 1.95 4.55 4.55 0 0 0 .96 2.42 10.4 10.4 0 0 0 3.99 3.52c.56.24.99.38 1.33.49.56.18 1.07.15 1.47.09.45-.07 1.38-.56 1.57-1.11.2-.55.2-1.02.14-1.11-.06-.1-.21-.16-.44-.27z"/></symbol>
+</svg>
+
+<div class="demo-strip"><b>Demo</b><span class="long"> · Milet Coffee için Ömer tarafından hazırlandı · çekirdek, fiyat ve etkinlikler örnektir</span><span class="short"> · çekirdek ve fiyatlar örnektir</span></div>
+
+<header class="site-head">
+  <a class="logo" href="#raf" aria-label="Milet Coffee, nitelikli kahve"><img src="img/logo.png" alt="Milet, nitelikli kahve" width="480" height="314"></a>
+  <nav class="nav" aria-label="Sayfa içi">
+    <div class="links">
+      <a href="#raf">Raf</a><a href="#tadim">Tadım</a><a href="#dukkan">Dükkân</a><a href="#ziyaret">Ziyaret</a>
+    </div>
+    <a class="cart-chip" href="#siparis" aria-label="Sepet"><span>SEPET</span><span class="digits" id="cartDigits" aria-hidden="true"><span class="flap digit"><span>0</span></span><span class="flap digit"><span>0</span></span></span><span class="sr" id="cartCountSr">0 ürün</span></a>
+  </nav>
+</header>
+
+<main>
+<section id="raf" aria-labelledby="h-raf">
+  <div class="hero">
+    <h1 class="headline" id="h-raf" data-flap="Bugün rafta"><span class="sr">Bugün rafta</span></h1>
+    <div class="hero-sub">
+      <p><span class="long">Petra, Spada, Coffee Department ve yedi kavurucudan daha mikro lot çekirdek. Seçin, sepete ekleyin, siparişinizi WhatsApp'tan gönderin.</span><span class="short">Seç, sepete ekle, WhatsApp'tan sipariş ver.</span></p>
+      <div class="meta"><span><svg class="i"><use href="#i-pin"/></svg>Bahçelievler</span><span><svg class="i"><use href="#i-clock"/></svg>Kapanış 23:00</span></div>
+    </div>
+  </div>
+
+  <div class="board-wrap">
+    <div class="board" role="region" aria-label="Rafta bulunan çekirdekler">
+      <div class="board-top">
+        <span class="live"><span>Şimdi</span><span class="digits" id="clock" aria-hidden="true"></span><span class="sr" id="clockSr"></span></span>
+        <span id="boardCount"></span>
+        <span class="sample">Örnek veri</span>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Kavurucuya göre süz"></div>
+      <table class="rows" id="rows">
+        <colgroup><col class="c-roaster"><col class="c-bean"><col class="c-proc col-opt"><col class="c-notes col-opt"><col class="c-price col-opt"><col class="c-status"><col class="c-add"></colgroup>
+        <thead><tr><th scope="col">Kavurucu</th><th scope="col">Çekirdek</th><th scope="col" class="col-opt">İşlem</th><th scope="col" class="col-opt">Notlar</th><th scope="col" class="col-opt" style="text-align:right">250 g</th><th scope="col" style="text-align:center">Durum</th><th scope="col"><span class="sr">Sepete ekle</span></th></tr></thead>
+        <tbody id="rowsBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="tadim" class="sec" aria-labelledby="h-tadim">
+  <h2 class="flapline" id="h-tadim" data-flap="Tadım"><span class="sr">Tadım</span></h2>
+  <div class="tasting">
+    <div class="copy">
+      <p class="lede">Aynı reçete, üç farklı kavurucu. Notaları Kruve tadım bardaklarında yan yana deneyin, beğendiğinizi raftan alın.</p>
+      <p>Sadece manuel demleme yöntemleriyle çalışıyoruz. Tadım menüsünde aynı ülkeden ya da aynı işlemden üç çekirdeği karşılaştırıyor, hangi notaları sevdiğinizi birlikte buluyoruz.</p>
+      <p>Türk kahvesini de unutmadık: soy cezvede, kişiye özel demleme.</p>
+      <figure><img src="img/cezve.jpg" alt="Milet'in ocak üzerindeki iki dövme bakır cezvesi" loading="lazy" width="900" height="1200"></figure>
+    </div>
+    <div>
+      <div class="board mini" role="region" aria-label="Bu haftanın tadım üçlüsü">
+        <div class="board-top"><span>Bu hafta tadımda</span><span class="sample">Örnek</span></div>
+        <table class="rows"><colgroup><col style="width:34%"><col><col style="width:30%"></colgroup>
+          <thead class="sr"><tr><th>Kavurucu</th><th>Çekirdek</th><th>İşlem</th></tr></thead>
+          <tbody id="flightBody"></tbody>
+        </table>
+      </div>
+      <div class="board mini" role="region" aria-label="Yaklaşan tadım etkinlikleri">
+        <div class="board-top"><span>Etkinlikler</span><span class="sample">Örnek</span></div>
+        <div id="events"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dukkan" class="sec" aria-labelledby="h-dukkan">
+  <h2 class="flapline" id="h-dukkan" data-flap="Dükkân"><span class="sr">Dükkân</span></h2>
+  <p class="lede">Her çekirdek, toprağının ve ikliminin hafızasını taşır. Bahçelievler'de, terası olan küçük bir nitelikli kahve dükkânı.</p>
+  <div class="shop">
+    <figure class="a"><img src="img/raf.jpg" alt="Milet'in duvar rafında farklı kavurucuların renkli kahve paketleri" loading="lazy" width="900" height="1296"><figcaption><span class="flap">Farklı kavurucular, tek raf</span></figcaption></figure>
+    <figure class="b"><img src="img/demleme.jpg" alt="Duvardaki çerçeveler ve rafta V60, Chemex ve demleme ekipmanları" loading="lazy" width="1400" height="1050"><figcaption><span class="flap">Sadece manuel demleme</span></figcaption></figure>
+    <figure class="c"><img src="img/ic-mekan.jpg" alt="Cam cepheden görünen beyaz, sade iç mekân ve ahşap masalar" loading="lazy" width="1400" height="1050"><figcaption><span class="flap">Sakin bir mola</span></figcaption></figure>
+    <figure class="e"><img src="img/teras.jpg" alt="Akşam ışığında Milet şemsiyeli teras masaları ve çiçekli saksılar" loading="lazy" width="1400" height="1050"><figcaption><span class="flap">Akşam terası</span></figcaption></figure>
+  </div>
+  <ul class="creed">
+    <li><b>Seçili mikro lotlar</b>Farklı kavurucuların çekirdeklerini sunuyoruz; sevdiğiniz kahveyi istediğiniz miktarda alabilirsiniz.</li>
+    <li><b>İyi tarım uygulaması</b>Sürdürülebilirlik bizim için önemli; sadece iyi tarım uygulaması olan çiftliklerden gelen kahveleri tercih ediyoruz.</li>
+    <li><b>Doğal ve taze</b>Tüm kahvelerimiz özenle hazırlanır, tazelik her yudumda hissedilir.</li>
+  </ul>
+</section>
+
+<section id="yorumlar" class="sec" aria-labelledby="h-yorum">
+  <h2 class="flapline" id="h-yorum" data-flap="Yorumlar"><span class="sr">Yorumlar</span></h2>
+  <div class="score"><span class="digits" aria-hidden="true"><span class="flap"><span>5</span></span><span class="flap"><span>,</span></span><span class="flap"><span>0</span></span></span><span>Google · 59 yorum</span><span class="sr">Google'da 5,0 puan, 59 yorum</span></div>
+  <div class="reviews">
+    <div class="rv"><div class="flap who">Tunahan S.<small>Google</small></div><div class="flap quote"><span>Farklı kavurucuların kahvelerini tadım menüsüyle karşılaştırabileceğiniz nadir bir işletme.</span></div></div>
+    <div class="rv"><div class="flap who">M. Vehbi G.<small>Google</small></div><div class="flap quote"><span>Ankara'da nitelikli çekirdek çeşitliliği en fazla olan kafe.</span></div></div>
+    <div class="rv"><div class="flap who">İrem T.<small>Google</small></div><div class="flap quote"><span>Sakin, huzurlu bir atmosfer; özellikle tadım menüsü çok keyifli bir deneyim.</span></div></div>
+  </div>
+</section>
+
+<section id="siparis" class="sec" aria-labelledby="h-siparis">
+  <h2 class="flapline" id="h-siparis" data-flap="Sipariş"><span class="sr">Sipariş</span></h2>
+  <div class="order">
+    <div class="slip" id="slip" aria-live="polite"></div>
+    <form class="form" id="orderForm" onsubmit="return false">
+      <fieldset>
+        <legend>Teslimat</legend>
+        <div class="seg" id="deliverySeg">
+          <button type="button" aria-pressed="true" data-v="Dükkândan alacağım">Dükkândan alacağım</button>
+          <button type="button" aria-pressed="false" data-v="Kargo istiyorum">Kargo istiyorum</button>
+        </div>
+      </fieldset>
+      <div class="field"><label for="oName">Adınız</label><input type="text" id="oName" autocomplete="name" placeholder="Siparişi kimin adına hazırlayalım?"></div>
+      <div class="field"><label for="oNote">Not</label><textarea id="oNote" placeholder="Ör. yarın 18:00 gibi uğrarım"></textarea></div>
+      <div class="send">
+        <a class="btn" id="sendWa" href="#" target="_blank" rel="noopener"><svg class="i fill"><use href="#i-wa"/></svg>WhatsApp'tan gönder</a>
+        <button class="btn ghost" type="button" id="sendIg"><svg class="i"><use href="#i-insta"/></svg>Instagram'dan gönder</button>
+        <p class="status-msg" id="sendStatus" role="status"></p>
+        <p class="hint">Sipariş mesajınız hazır açılır, göndermeniz yeterli. Ödeme ve teslim saati dükkânla netleşir. <em>Demo notu: Milet'in WhatsApp numarası eklendiğinde mesaj doğrudan dükkâna gider.</em></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section id="ziyaret" class="sec" aria-labelledby="h-ziyaret">
+  <h2 class="flapline" id="h-ziyaret" data-flap="Ziyaret"><span class="sr">Ziyaret</span></h2>
+  <div class="visit">
+    <div class="info">
+      <div class="board">
+        <div class="row"><div class="flap k">Adres</div><div class="flap">Oğuzhan Asiltürk Cad. No:1/B, Bahçelievler, Çankaya</div></div>
+        <div class="row"><div class="flap k">Metro</div><div class="flap">Bahçelievler istasyonu (Ankaray)</div></div>
+        <div class="row"><div class="flap k">Saat</div><div class="flap">Kapanış 23:00 <span class="muted">· açılış saati eklenecek</span></div></div>
+        <div class="row"><div class="flap k">Telefon</div><div class="flap muted">Numara eklenecek</div></div>
+        <div class="row"><div class="flap k">E-posta</div><div class="flap" style="text-transform:none">iletisim@miletcoffee.com</div></div>
+      </div>
+      <div class="ctas">
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Milet+Coffee+O%C4%9Fuzhan+Asilt%C3%BCrk+Cad.+1+Bah%C3%A7elievler+Ankara" target="_blank" rel="noopener"><svg class="i"><use href="#i-pin"/></svg>Yol tarifi</a>
+        <a class="btn ghost" href="https://www.instagram.com/miletcoffee/" target="_blank" rel="noopener" style="text-transform:none"><svg class="i"><use href="#i-insta"/></svg>@miletcoffee</a>
+        <a class="btn ghost" href="mailto:iletisim@miletcoffee.com"><svg class="i"><use href="#i-mail"/></svg>E-posta</a>
+      </div>
+    </div>
+    <figure><img src="img/acildi.jpg" alt="Kapıdaki pano: Milet Coffee açıldı, Petra, Spada, Coffee Department çekirdekleri burada" loading="lazy" width="900" height="1200"></figure>
+  </div>
+</section>
+</main>
+
+<footer>
+  <img src="img/logo.png" alt="Milet, nitelikli kahve" width="480" height="314" loading="lazy">
+  <p>Bu sayfa, Milet Coffee'ye önermek için hazırlanmış bir demodur. Çekirdek adları, fiyatlar, kavrum tarihleri ve etkinlikler örnektir; fotoğraflar ve yorumlar Milet'e aittir. Hazırlayan: Ömer.</p>
+</footer>
+
+<div class="orderbar is-empty" id="orderbar">
+  <a href="#siparis" id="orderbarLink">
+    <span class="sum"><svg class="i"><use href="#i-bag"/></svg><span id="barText">Sepet boş</span><small id="barSub">+ ile çekirdek ekleyin</small></span>
+    <span class="go"><span id="barGo">Rafa bak</span><svg class="i"><use href="#i-arrow"/></svg></span>
+  </a>
+</div>
+
+<script>
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TR = 'tr-TR';
+  const up = s => String(s).toLocaleUpperCase(TR);
+  const money = n => '₺' + new Intl.NumberFormat(TR).format(Math.round(n));
+
+  /* Örnek veri: gerçek liste dükkândan gelecek. Kavurucu adları Milet'in panosu ve Instagram'ından. */
+  const BEANS = [
+    {id:'spada-guji', roaster:'Spada', country:'Etiyopya', bean:'Etiyopya Guji', region:'Guji, Hambela', process:'Natural', variety:'Heirloom', alt:'2.100 m', notes:['yaban mersini','yasemin','bergamot'], profile:'Filtre', roast:'08.10', price:980, status:'new'},
+    {id:'spada-huila', roaster:'Spada', country:'Kolombiya', bean:'Kolombiya Huila', region:'Huila, Pitalito', process:'Washed', variety:'Caturra', alt:'1.700 m', notes:['karamel','kırmızı elma','kakao'], profile:'Omni', roast:'02.10', price:860},
+    {id:'petra-nyeri', roaster:'Petra', country:'Kenya', bean:'Kenya Nyeri AA', region:'Nyeri', process:'Washed', variety:'SL28, SL34', alt:'1.800 m', notes:['frenk üzümü','greyfurt','domates yaprağı'], profile:'Filtre', roast:'06.10', price:1040},
+    {id:'petra-cerrado', roaster:'Petra', country:'Brezilya', bean:'Brezilya Cerrado', region:'Cerrado Mineiro', process:'Natural', variety:'Yellow Bourbon', alt:'1.100 m', notes:['fındık','sütlü çikolata'], profile:'Espresso', roast:'30.09', price:720},
+    {id:'dept-rwanda', roaster:'Coffee Department', mid:'Coffee Dept.', short:'Dept.', country:'Ruanda', bean:'Ruanda Nyamasheke', region:'Nyamasheke', process:'Washed', variety:'Red Bourbon', alt:'1.900 m', notes:['kırmızı erik','hibiskus','bal'], profile:'Filtre', roast:'09.10', price:940, status:'new'},
+    {id:'dept-huehue', roaster:'Coffee Department', mid:'Coffee Dept.', short:'Dept.', country:'Guatemala', bean:'Guatemala Huehue', region:'Huehuetenango', process:'Washed', variety:'Bourbon, Caturra', alt:'1.750 m', notes:['portakal','kahverengi şeker'], profile:'Omni', roast:'01.10', price:880},
+    {id:'ultra-tarrazu', roaster:'Ultra', country:'Kosta Rika', bean:'Kosta Rika Tarrazú', region:'Tarrazú', process:'Honey', variety:'Catuaí', alt:'1.650 m', notes:['şeftali','akasya balı'], profile:'Filtre', roast:'04.10', price:910},
+    {id:'origami-pink', roaster:'Origami', country:'Kolombiya', bean:'Kolombiya Pink Bourbon', region:'Huila, San Agustín', process:'Anaerobik', variety:'Pink Bourbon', alt:'1.850 m', notes:['çilek','ahududu','kakao nibs'], profile:'Filtre', roast:'10.10', price:1180, status:'new'},
+    {id:'niji-yirga', roaster:'Niji', country:'Etiyopya', bean:'Etiyopya Yirgacheffe', region:'Yirgacheffe, Kochere', process:'Washed', variety:'Heirloom', alt:'2.000 m', notes:['limon kabuğu','ıhlamur','şeftali'], profile:'Filtre', roast:'03.10', price:960},
+    {id:'roastroom-peru', roaster:'The Roast Room', short:'Roast Room', country:'Peru', bean:'Peru Cajamarca', region:'Cajamarca', process:'Washed', variety:'Typica', alt:'1.800 m', notes:['kakao','kuru üzüm'], profile:'Espresso', roast:'29.09', price:790},
+    {id:'milestones-sumatra', roaster:'Milestones', country:'Endonezya', bean:'Endonezya Sumatra', region:'Aceh, Gayo', process:'Wet hulled', variety:'Typica', alt:'1.400 m', notes:['sedir','bitter çikolata','baharat'], profile:'Espresso', roast:'05.10', price:820},
+    {id:'whole-geisha', roaster:'Whole', country:'Panama', bean:'Panama Geisha', region:'Boquete', process:'Washed', variety:'Geisha', alt:'1.700 m', notes:['yasemin','bergamot','şeftali'], profile:'Filtre', roast:'22.09', price:1450, status:'out'},
+    {id:'orea-burundi', roaster:'Orea', country:'Burundi', bean:'Burundi Kayanza', region:'Kayanza', process:'Natural', variety:'Red Bourbon', alt:'1.850 m', notes:['orman meyvesi','şarap'], profile:'Filtre', roast:'25.09', price:930, status:'out'},
+  ];
+  const FLIGHT = ['spada-guji','niji-yirga','dept-rwanda'];
+  const EVENTS = [
+    {when:'18.10 Cmt', time:'16:00', what:'Etiyopya üçlüsü', sub:'Guji · Yirgacheffe · Sidamo', seats:'8 kişi', state:'open'},
+    {when:'25.10 Cmt', time:'16:00', what:'Natural mı, washed mı?', sub:'Aynı çiftlik, iki işlem', seats:'8 kişi', state:'few'},
+    {when:'01.11 Cmt', time:'15:00', what:'Evde V60 atölyesi', sub:'Öğütme, oran, döküş', seats:'6 kişi', state:'full'},
+  ];
+  const GRAMS = [{k:'250 g', mult:1},{k:'1 kg', mult:3.6}];
+  const GRINDS = ['Çekirdek','V60 / filtre','Chemex','French press','Espresso','Türk kahvesi'];
+  const byId = Object.fromEntries(BEANS.map(b => [b.id, b]));
+  const priceOf = (b, g) => Math.round(b.price * (GRAMS.find(x => x.k === g)?.mult || 1) / 10) * 10;
+  const mq = window.matchMedia('(max-width:860px)');
+  const shortRoaster = b => mq.matches ? (b.short || b.roaster) : (b.mid || b.roaster);
+
+  /* ---------- state ---------- */
+  let filter = 'all';
+  let open = null;
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem('milet-cart') || '[]').filter(l => byId[l.id]); } catch (e) { cart = []; }
+  const save = () => { try { localStorage.setItem('milet-cart', JSON.stringify(cart)); } catch (e) {} };
+  const qtyInCart = id => cart.filter(l => l.id === id).reduce((a, l) => a + l.qty, 0);
+  const total = () => cart.reduce((a, l) => a + priceOf(byId[l.id], l.gram) * l.qty, 0);
+  const count = () => cart.reduce((a, l) => a + l.qty, 0);
+
+  /* ---------- flap engine ---------- */
+  const CHARS = 'ABCÇDEFGĞHIİJKLMNOÖPRSŞTUÜVYZ0123456789';
+  function flapTo(el, target, delay = 0, spread = 26) {
+    target = up(target);
+    if (reduce) { el.textContent = target; return; }
+    if (el._raf) cancelAnimationFrame(el._raf);
+    const from = el.textContent || '';
+    const n = Math.max(target.length, from.length);
+    const settle = Array.from({length: n}, (_, i) => 110 + i * spread + Math.random() * 160);
+    const t0 = performance.now() + delay;
+    let lastStep = -1;
+    const frame = now => {
+      const t = now - t0;
+      if (t < 0) { el._raf = requestAnimationFrame(frame); return; }
+      const step = Math.floor(t / 42);
+      if (step !== lastStep) {
+        lastStep = step;
+        let out = '', done = true;
+        for (let i = 0; i < n; i++) {
+          const c = target[i] ?? '';
+          if (t >= settle[i] || c === ' ') { out += c; }
+          else { done = false; out += CHARS[(Math.random() * CHARS.length) | 0]; }
+        }
+        el.textContent = out;
+        if (done) { el.textContent = target; el._raf = null; return; }
+      }
+      el._raf = requestAnimationFrame(frame);
+    };
+    el._raf = requestAnimationFrame(frame);
+  }
+  function tick(el) { if (reduce) return; el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick'); }
+
+  /* per-letter flap headings */
+  function buildFlapline(h, animate) {
+    const text = up(h.dataset.flap);
+    const vis = document.createElement('span');
+    vis.setAttribute('aria-hidden', 'true');
+    vis.style.display = 'contents';
+    let idx = 0;
+    text.split(' ').forEach(word => {
+      const w = document.createElement('span'); w.className = 'word';
+      [...word].forEach(ch => {
+        const f = document.createElement('span'); f.className = 'flap';
+        const s = document.createElement('span'); s.textContent = animate && !reduce ? ' ' : ch;
+        f.appendChild(s); w.appendChild(f);
+        if (animate) { const d = idx * 70; setTimeout(() => { flapTo(s, ch, 0, 0); }, 120 + d); }
+        idx++;
+      });
+      vis.appendChild(w);
+    });
+    h.appendChild(vis);
+  }
+  buildFlapline(document.querySelector('.headline'), true);
+  document.querySelectorAll('.flapline').forEach(h => buildFlapline(h, false));
+
+  /* clock */
+  const clock = document.getElementById('clock');
+  const clockSr = document.getElementById('clockSr');
+  const clockCells = [];
+  '00:00'.split('').forEach(ch => {
+    const f = document.createElement('span'); f.className = 'flap';
+    const s = document.createElement('span'); s.textContent = ch; f.appendChild(s); clock.appendChild(f); clockCells.push(s);
+  });
+  function setClock(first) {
+    const d = new Date();
+    const str = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    clockSr.textContent = str;
+    [...str].forEach((ch, i) => { if (clockCells[i].textContent !== ch) { first ? (clockCells[i].textContent = ch) : flapTo(clockCells[i], ch, i * 60, 0); } });
+  }
+  setClock(true); setInterval(() => setClock(false), 15000);
+
+  /* ---------- filters ---------- */
+  const filtersEl = document.getElementById('filters');
+  const roasters = [...new Set(BEANS.map(b => b.roaster))];
+  function renderFilters() {
+    filtersEl.innerHTML = '';
+    [['all','Tümü'], ...roasters.map(r => [r, r])].forEach(([v, label]) => {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'flap'; b.textContent = up(label);
+      b.setAttribute('aria-pressed', String(filter === v));
+      b.addEventListener('click', () => { if (filter === v) return; filter = v; open = null; renderFilters(); renderRows(true); });
+      filtersEl.appendChild(b);
+    });
+  }
+  document.getElementById('boardCount').innerHTML = `<span>${BEANS.filter(b => b.status !== 'out').length} çekirdek</span><span class="opt-sm"> · ${roasters.length} kavurucu</span>`;
+
+  /* ---------- board rows ---------- */
+  const body = document.getElementById('rowsBody');
+  const statusOf = b => b.status === 'out' ? 'out' : qtyInCart(b.id) ? 'cart' : b.status === 'new' ? 'new' : 'shelf';
+  const statusText = (b, st) => st === 'out' ? 'Bitti' : st === 'cart' ? 'Sepette' : st === 'new' ? 'Yeni' : 'Rafta';
+  const statusSub = (b, st) => mq.matches
+    ? (st === 'cart' ? `× ${qtyInCart(b.id)}` : money(b.price))
+    : (st === 'cart' ? `× ${qtyInCart(b.id)} · kavrum ${b.roast}` : `kavrum ${b.roast}`);
+
+  function cell(tag, cls, text, sub) {
+    const el = document.createElement(tag);
+    el.className = 'cell flap ' + (cls || '');
+    const t = document.createElement('span'); t.className = 't'; t.textContent = up(text); el.appendChild(t);
+    if (sub) { const s = document.createElement('span'); s.className = 's'; s.textContent = up(sub); el.appendChild(s); }
+    return el;
+  }
+
+  function renderRows(animate) {
+    body.innerHTML = '';
+    const list = BEANS.filter(b => filter === 'all' || b.roaster === filter);
+    list.forEach((b, ri) => {
+      const st = statusOf(b);
+      const tr = document.createElement('tr');
+      tr.dataset.id = b.id;
+      if (st === 'out') tr.className = 'out';
+
+      const narrow = mq.matches;
+      const td1 = document.createElement('td'); td1.appendChild(cell('div', '', shortRoaster(b), b.profile));
+      const td2 = document.createElement('td');
+      const beanBtn = cell('button', 'bean', narrow ? b.country : b.bean, narrow ? b.process : b.region);
+      beanBtn.type = 'button';
+      beanBtn.setAttribute('aria-expanded', String(open === b.id));
+      beanBtn.setAttribute('aria-controls', 'd-' + b.id);
+      beanBtn.setAttribute('aria-label', `${b.roaster}, ${b.bean}: ayrıntılar`);
+      beanBtn.addEventListener('click', () => { open = open === b.id ? null : b.id; renderRows(false); const d = document.getElementById('d-' + b.id); if (d && open) d.querySelector('h3')?.focus({preventScroll: true}); });
+      td2.appendChild(beanBtn);
+      const td3 = document.createElement('td'); td3.className = 'col-opt'; td3.appendChild(cell('div', '', b.process, b.variety));
+      const td4 = document.createElement('td'); td4.className = 'col-opt'; td4.appendChild(cell('div', 'notes', b.notes.join(' · '), `Rakım ${b.alt}`));
+      const td5 = document.createElement('td'); td5.className = 'col-opt'; td5.appendChild(cell('div', 'price', money(b.price), '250 g'));
+      const td6 = document.createElement('td');
+      const stc = cell('div', 'status st-' + st, statusText(b, st), statusSub(b, st)); td6.appendChild(stc);
+      const td7 = document.createElement('td');
+      const add = document.createElement('button');
+      add.type = 'button'; add.className = 'add';
+      add.innerHTML = '<svg class="i"><use href="#i-plus"/></svg>';
+      add.setAttribute('aria-label', st === 'out' ? `${b.roaster} ${b.bean} tükendi` : `${b.roaster} ${b.bean}, 250 g, sepete ekle`);
+      if (st === 'out') add.disabled = true;
+      add.addEventListener('click', () => addToCart(b.id, '250 g', 'Çekirdek'));
+      td7.appendChild(add);
+      [td1, td2, td3, td4, td5, td6, td7].forEach(td => tr.appendChild(td));
+      body.appendChild(tr);
+
+      if (animate) {
+        tr.querySelectorAll('.cell .t').forEach((t, ci) => { const final = t.textContent; t.textContent = ''; flapTo(t, final, ri * 55 + ci * 40, 22); });
+      }
+      if (open === b.id) body.appendChild(detailRow(b));
+    });
+  }
+
+  function detailRow(b) {
+    const tr = document.createElement('tr'); tr.className = 'detail';
+    const td = document.createElement('td'); td.colSpan = mq.matches ? 4 : 7;
+    const box = document.createElement('div'); box.className = 'label'; box.id = 'd-' + b.id;
+    let gram = '250 g', grind = 'Çekirdek';
+    const out = b.status === 'out';
+    box.innerHTML = `
+      <div>
+        <h3 tabindex="-1">${b.bean}</h3>
+        <p class="by">${b.roaster} · kavrum ${b.roast} · örnek</p>
+        <p class="notes">${b.notes.map(n => n[0].toLocaleUpperCase(TR) + n.slice(1)).join(', ')}.</p>
+        <dl class="facts">
+          <div><dt>Bölge</dt><dd>${b.region}</dd></div>
+          <div><dt>Rakım</dt><dd>${b.alt}</dd></div>
+          <div><dt>Varyete</dt><dd>${b.variety}</dd></div>
+          <div><dt>İşlem</dt><dd>${b.process}</dd></div>
+          <div><dt>Profil</dt><dd>${b.profile}</dd></div>
+          <div><dt>Kavrum</dt><dd>${b.roast}.2026</dd></div>
+        </dl>
+      </div>
+      <div class="buy">
+        ${out ? `
+          <p style="margin:0;font-size:17px">Bu parti bitti. Yeni partisi rafa gelince haber verelim mi?</p>
+          <a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(`Merhaba Milet Coffee, ${b.roaster} ${b.bean} yeniden gelince haber verebilir misiniz?`)}"><svg class="i fill"><use href="#i-wa"/></svg>Gelince haber ver</a>
+        ` : `
+          <div class="field"><label>Miktar</label><div class="seg" data-k="gram">${GRAMS.map(g => `<button type="button" aria-pressed="${g.k === gram}" data-v="${g.k}">${g.k}</button>`).join('')}</div></div>
+          <div class="field"><label>Öğütme</label><div class="seg" data-k="grind">${GRINDS.map(g => `<button type="button" aria-pressed="${g === grind}" data-v="${g}">${g}</button>`).join('')}</div></div>
+          <div class="buy-row"><span class="price-big"><span data-price>${money(priceOf(b, gram))}</span><small>örnek fiyat</small></span>
+          <button type="button" class="btn" data-add><svg class="i"><use href="#i-plus"/></svg>Sepete ekle</button></div>
+        `}
+      </div>`;
+    if (!out) {
+      box.querySelectorAll('.seg').forEach(seg => seg.addEventListener('click', e => {
+        const btn = e.target.closest('button'); if (!btn) return;
+        seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === btn)));
+        if (seg.dataset.k === 'gram') { gram = btn.dataset.v; const p = box.querySelector('[data-price]'); flapTo(p, money(priceOf(b, gram)), 0, 30); }
+        else grind = btn.dataset.v;
+      }));
+      box.querySelector('[data-add]').addEventListener('click', () => addToCart(b.id, gram, grind));
+    }
+    td.appendChild(box); tr.appendChild(td);
+    return tr;
+  }
+
+  /* ---------- cart ---------- */
+  function addToCart(id, gram, grind) {
+    const ex = cart.find(l => l.id === id && l.gram === gram && l.grind === grind);
+    if (ex) ex.qty++; else cart.push({id, gram, grind, qty: 1});
+    save();
+    const row = body.querySelector(`tr[data-id="${id}"]`);
+    if (row) {
+      const stc = row.querySelector('.cell.status');
+      stc.className = 'cell flap status st-cart';
+      tick(stc);
+      flapTo(stc.querySelector('.t'), 'Sepette', 0, 30);
+      stc.querySelector('.s').textContent = up(statusSub(byId[id], 'cart'));
+    }
+    updateCart(true);
+  }
+
+  const cartDigits = [...document.querySelectorAll('#cartDigits .flap span')];
+  const bar = document.getElementById('orderbar');
+  function updateCart(animate) {
+    const n = Math.min(count(), 99);
+    const str = String(n).padStart(2, '0');
+    cartDigits.forEach((d, i) => { if (d.textContent !== str[i]) { animate ? (flapTo(d, str[i], i * 80, 0), tick(d.parentElement)) : (d.textContent = str[i]); } });
+    document.getElementById('cartCountSr').textContent = `${n} ürün`;
+    const empty = n === 0;
+    bar.classList.toggle('is-empty', empty);
+    const barText = document.getElementById('barText');
+    const barSub = document.getElementById('barSub');
+    const barGo = document.getElementById('barGo');
+    document.getElementById('orderbarLink').setAttribute('href', empty ? '#raf' : '#siparis');
+    if (empty) { barText.textContent = 'Sepet boş'; barSub.textContent = '+ ile çekirdek ekleyin'; barGo.textContent = 'Rafa bak'; }
+    else {
+      const t = money(total());
+      animate ? flapTo(barText, t, 0, 30) : (barText.textContent = up(t));
+      barSub.textContent = `${n} ürün`;
+      barGo.textContent = 'Siparişi tamamla';
+    }
+    renderSlip();
+  }
+
+  const slip = document.getElementById('slip');
+  function renderSlip() {
+    if (!cart.length) {
+      slip.innerHTML = `<div class="empty"><b>Sepet boş</b>Raftan bir çekirdek seçin; satırdaki + ile ekleyebilir ya da çekirdeğe dokunup miktar ve öğütmeyi seçebilirsiniz. <a href="#raf">Rafa dön</a></div>`;
+    } else {
+      slip.innerHTML = cart.map((l, i) => {
+        const b = byId[l.id];
+        return `<div class="line">
+          <div><h4>${b.roaster} · ${b.bean}</h4><div class="opts">${l.gram} · ${l.grind}</div></div>
+          <div class="amt">${money(priceOf(b, l.gram) * l.qty)}</div>
+          <div class="ctrl">
+            <span class="qty"><button type="button" data-dec="${i}" aria-label="Bir azalt"><svg class="i"><use href="#i-minus"/></svg></button><output aria-label="Adet">${l.qty}</output><button type="button" data-inc="${i}" aria-label="Bir artır"><svg class="i"><use href="#i-plus"/></svg></button></span>
+            <button type="button" class="linkbtn" data-rm="${i}">Çıkar</button>
+          </div>
+        </div>`;
+      }).join('') + `<div class="total"><span>Toplam · örnek fiyat</span><strong>${money(total())}</strong></div>`;
+    }
+    const has = cart.length > 0;
+    if (has) document.getElementById('sendWa').removeAttribute('aria-disabled');
+    else document.getElementById('sendWa').setAttribute('aria-disabled', 'true');
+    document.getElementById('sendWa').style.opacity = has ? '' : '.45';
+    document.getElementById('sendIg').disabled = !has;
+    document.getElementById('sendWa').href = has ? 'https://wa.me/?text=' + encodeURIComponent(orderText()) : '#siparis';
+  }
+  slip.addEventListener('click', e => {
+    const t = e.target.closest('button'); if (!t) return;
+    if (t.dataset.inc) cart[+t.dataset.inc].qty++;
+    else if (t.dataset.dec) { const l = cart[+t.dataset.dec]; l.qty--; if (l.qty <= 0) cart.splice(+t.dataset.dec, 1); }
+    else if (t.dataset.rm) cart.splice(+t.dataset.rm, 1);
+    else return;
+    save(); updateCart(true); renderRows(false);
+  });
+
+  let delivery = 'Dükkândan alacağım';
+  document.getElementById('deliverySeg').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    delivery = b.dataset.v;
+    document.querySelectorAll('#deliverySeg button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    renderSlip();
+  });
+  ['oName', 'oNote'].forEach(id => document.getElementById(id).addEventListener('input', () => renderSlip()));
+
+  function orderText() {
+    const name = document.getElementById('oName').value.trim();
+    const note = document.getElementById('oNote').value.trim();
+    const lines = cart.map(l => { const b = byId[l.id]; return `• ${b.roaster} · ${b.bean} (${b.process}) · ${l.gram} · ${l.grind} × ${l.qty} = ${money(priceOf(b, l.gram) * l.qty)}`; });
+    const parts = ['Merhaba Milet Coffee, sipariş vermek istiyorum:', '', ...lines, '', `Toplam: ${money(total())}`, `Teslimat: ${delivery}`];
+    if (name) parts.push(`İsim: ${name}`);
+    if (note) parts.push(`Not: ${note}`);
+    return parts.join('\n');
+  }
+
+  const sendStatus = document.getElementById('sendStatus');
+  document.getElementById('sendWa').addEventListener('click', e => {
+    if (!cart.length) { e.preventDefault(); sendStatus.textContent = 'Önce sepete bir çekirdek ekleyin.'; return; }
+    sendStatus.textContent = 'WhatsApp açılıyor, mesajınız hazır.';
+  });
+  document.getElementById('sendIg').addEventListener('click', async () => {
+    if (!cart.length) return;
+    const text = orderText();
+    try {
+      await navigator.clipboard.writeText(text);
+      sendStatus.textContent = 'Sipariş metni kopyalandı. Açılan sohbete yapıştırıp gönderin.';
+    } catch (err) {
+      sendStatus.textContent = 'Metin kopyalanamadı; WhatsApp ile göndermeyi deneyin.';
+    }
+    window.open('https://ig.me/m/miletcoffee', '_blank', 'noopener');
+  });
+
+  /* ---------- tasting + events ---------- */
+  const fb = document.getElementById('flightBody');
+  FLIGHT.forEach(id => {
+    const b = byId[id]; const tr = document.createElement('tr');
+    [[shortRoaster(b), b.profile], [b.country, b.region], [b.process, b.notes[0]]].forEach(([txt, sub], i) => { const td = document.createElement('td'); td.appendChild(cell('div', '', txt, sub)); tr.appendChild(td); });
+    fb.appendChild(tr);
+  });
+  const ev = document.getElementById('events');
+  EVENTS.forEach(e => {
+    const row = document.createElement('div'); row.className = 'ev';
+    const label = e.state === 'full' ? 'Dolu' : e.state === 'few' ? 'Son yerler' : 'Yer ayırt';
+    const msg = `Merhaba Milet Coffee, ${e.when} ${e.time} "${e.what}" tadımı için yer ayırtmak istiyorum.`;
+    row.innerHTML = `<div class="flap when">${up(e.when)}<br>${e.time}</div>
+      <div class="flap what">${up(e.what)}<small>${up(e.sub)} · ${up(e.seats)}</small></div>
+      ${e.state === 'full'
+        ? `<div class="flap act full">DOLU</div>`
+        : `<a class="flap act" href="https://wa.me/?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${up(label)}</a>`}`;
+    ev.appendChild(row);
+  });
+
+  /* ---------- go ---------- */
+  renderFilters();
+  renderRows(true);
+  updateCart(false);
+  mq.addEventListener('change', () => renderRows(false));
+})();
+</script>
+</body>
+</html>
