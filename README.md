@@ -68,6 +68,8 @@ Java (Swing), Python, Android ve notebook projeleri bu sayfada görselsiz.
 - [QuizApp](web/QuizApp) — Quiz Uygulaması
 - [Online-NoteBook](web/Online-NoteBook) — Çevrimiçi Not Defteri
 - [MotorRentaCaR](web/MotorRentaCaR) — Motor Kiralama Web Sitesi
+- [milet-coffee-demo](web/milet-coffee-demo) — Milet Coffee — üç tasarım önerisi
+- [ankara-tur](web/ankara-tur) — Ankara Tur — web sitesi
 
 ## android
 
