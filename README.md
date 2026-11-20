@@ -4,6 +4,23 @@
 bağımlılıksız (saf HTML/CSS/JS) statik site. Kurulum gerektirmez: `index.html` dosyasını açmanız ya da klasörü
 herhangi bir statik hostinge yüklemeniz yeterli.
 
+## Ekran görüntüleri
+
+![Ana sayfa](docs/1-ana-sayfa.png)
+
+| Turlar | Tur takvimi | Rezervasyon |
+|---|---|---|
+| ![Tur listesi ve süzgeçler](docs/2-turlar.png) | ![Tur takvimi](docs/3-tur-takvimi.png) | ![Rezervasyon penceresi](docs/4-rezervasyon.png) |
+
+## Kullanım
+
+![Kullanım: hikâye, arama ve rezervasyon](docs/kullanim.gif)
+
+1. Üstteki yuvarlak **hikâyelere** dokunun; Instagram duyuruları tam ekran açılır.
+2. **Ankara çıkışlı turlar** bölümünde arama kutusuna şehir ya da rota yazın; kartlar süzülür.
+3. Bir turda **Rezervasyon** deyin. Tarih, kişi sayısı, binme noktası ve adınızı girin.
+4. **WhatsApp ile gönder** hazır mesajı açar; sunucuya veri gitmez.
+
 ## Klasör yapısı
 
 ```
