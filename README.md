@@ -45,9 +45,9 @@ Java (Swing), Python, Android ve notebook projeleri bu sayfada görselsiz.
 ## yapay-zeka
 
 - [AnimalClassification](yapay-zeka/AnimalClassification) — Animal Classification with CNN
-- [Resim-analizi](yapay-zeka/Resim-analizi) — 🚀 Gemini 2.0 Flash Chat Interface 🤖
+- [Resim-analizi](yapay-zeka/Resim-analizi) — Gemini 2.0 Flash Chat Interface
 - [CokAmacliSohbetAsistani](yapay-zeka/CokAmacliSohbetAsistani) — Çok Amaçlı Sohbet Asistanı
-- [YouTube-Video-Summarizer-Translator](yapay-zeka/YouTube-Video-Summarizer-Translator) — 📺 YouTube Video Summarizer/Translator
+- [YouTube-Video-Summarizer-Translator](yapay-zeka/YouTube-Video-Summarizer-Translator) — YouTube Video Summarizer/Translator
 
 ## veri-analizi
 

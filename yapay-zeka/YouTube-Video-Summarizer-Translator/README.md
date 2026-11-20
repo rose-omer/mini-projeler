@@ -1,4 +1,4 @@
-# 📺 YouTube Video Summarizer/Translator
+# YouTube Video Summarizer/Translator
 
 [![Python](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
@@ -7,15 +7,15 @@ YouTube videolarını otomatik transkriptleyip **AI ile özetleme ve çeviri** y
 
 <img src="https://img.icons8.com/color/96/000000/youtube-play.png" align="right" width="120">
 
-## 🌟 Öne Çıkan Özellikler
+## Öne Çıkan Özellikler
 
-- 🎯 **Çoklu Dil Desteği:** İngilizce, Türkçe, Almanca ve daha fazlası
-- ⚡ **Gerçek Zamanlı İşlem:** Videoyu yükler yüklemez transkript çıkarımı
-- 🤖 **Akıllı Model Seçimi:** Gemini AI modelleriyle optimize edilmiş çıktılar
-- 🔧 **Parametre Kontrolü:** 50-1000 kelime arası özelleştirilebilir uzunluk
-- 🔒 **Güvenli:** Yerel çalıştırma ve API anahtar kontrolü
+- **Çoklu Dil Desteği:** İngilizce, Türkçe, Almanca ve daha fazlası
+- **Gerçek Zamanlı İşlem:** Videoyu yükler yüklemez transkript çıkarımı
+- **Akıllı Model Seçimi:** Gemini AI modelleriyle optimize edilmiş çıktılar
+- **Parametre Kontrolü:** 50-1000 kelime arası özelleştirilebilir uzunluk
+- **Güvenli:** Yerel çalıştırma ve API anahtar kontrolü
 
-## 🚀 Hızlı Başlangıç
+## Hızlı Başlangıç
 
 ### Ön Koşullar
 - Python 3.8+

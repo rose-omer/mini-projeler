@@ -27,7 +27,7 @@ Projeyi yerel olarak çalıştırmak için aşağıdaki adımları izleyin:
 ## Kullanım
 
 1. `index.html` dosyasını bir tarayıcıda açın.
-2. Şifre girin ve şifre gücünü görebilmek için `👁️` butonuna tıklayarak şifreyi gösterip gizleyebilirsiniz.
+2. Şifre girin ve şifre gücünü görebilmek için göz butonuna tıklayarak şifreyi gösterip gizleyebilirsiniz.
 
 ## Dosya Yapısı
 

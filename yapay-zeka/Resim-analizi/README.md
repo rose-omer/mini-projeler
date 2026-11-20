@@ -1,4 +1,4 @@
-# 🚀 Gemini 2.0 Flash Chat Interface 🤖
+# Gemini 2.0 Flash Chat Interface
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.9+-blue?logo=python" alt="Python">
@@ -10,7 +10,7 @@
 **Google Gemini 2.0 Flash API kullanarak geliştirilen multimodal (metin + görsel) AI sohbet arayüzü**
 
 
-## 🌟 Öne Çıkan Özellikler
+## Öne Çıkan Özellikler
 
 - **Multimodal Etkileşim**: Metin ve resimleri aynı anda işleyebilme
 - **Gerçek Zamanlı Tarihçe**: Dinamik sohbet geçmişi görüntüleme
@@ -18,7 +18,7 @@
 - **Akıllı Context Yönetimi**: Uzun konuşmalarda bağlam koruma
 - **Güvenli API Entegrasyonu**: Çevre değişkenleriyle anahtar yönetimi
 
-## 📦 Kurulum
+## Kurulum
 
 ### Ön Koşullar
 - Python 3.9+
