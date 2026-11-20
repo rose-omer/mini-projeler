@@ -3,6 +3,28 @@
 Eski küçük alıştırma depoları tek depoda. Her klasör eski bir depodur; git geçmişi korundu.
 
 
+## Ekran görüntüleri
+
+Web projeleri (tarayıcıda yerelde açıldı; dış API çağrılmadı):
+
+| Dijital saat | Rastgele şifre | Parola gücü |
+|---|---|---|
+| ![Dijital saat](docs/web-dijital-saat.png) | ![Rastgele şifre üretici](docs/web-rastgele-sifre.png) | ![Parola gücü göstergesi](docs/web-parola-gucu.png) |
+
+| Görsel arama | Hava durumu | Motor kiralama |
+|---|---|---|
+| ![Görsel arama motoru](docs/web-gorsel-arama.png) | ![Hava durumu](docs/web-hava-durumu.png) | ![Motor kiralama sitesi](docs/web-motor-kiralama.png) |
+
+Java (Swing), Python, Android ve notebook projeleri bu sayfada görselsiz.
+
+## Kullanım
+
+![Hafıza kart oyunu: yanlış eşleşme, sonra doğru çiftler](docs/kullanim-hafiza-oyunu.gif)
+
+- Web projeleri: klasördeki `index.html` dosyasını tarayıcıda açın.
+- Hava durumu ve görsel arama dış API kullanır (OpenWeatherMap, Unsplash); internet gerekir.
+- Diğer projelerin çalıştırma notu kendi klasöründeki README'de.
+
 ## java
 
 - [AdamAsmacaOyunu](java/AdamAsmacaOyunu) — Adam Asmaca Oyunu
