@@ -25,13 +25,12 @@ Motor Kiralama web sitesi, kullanıcılarına şık bir arayüzle çeşitli moto
 
 - **Navigasyon:** Web sitesinin üst kısmında bulunan gezinme çubuğu, kullanıcıların ana sekmelere hızlı bir şekilde erişmelerine olanak tanır.
 
-## Ekran Görüntüsü Ve Video
+## Ekran Görüntüsü
+
+![Motor kiralama sitesi](../../docs/web-motor-kiralama.png)
 
 
-https://github.com/rose-omer/MotorRentaCaR/assets/117285777/2d473c67-b9eb-4775-8d2a-31f0287faf0e
 
 
-![asdasdasd](https://github.com/rose-omer/MotorRentaCaR/assets/117285777/0ccf453b-2221-425f-9a6b-9d18211eed1b)
-![ads](https://github.com/rose-omer/MotorRentaCaR/assets/117285777/b14add20-522b-4ac0-b420-44ffa0afda64)
 
 
